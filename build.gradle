@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA라이브러리
+    // runtimeOnly 'com.h2database:h2' // H2 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // 타임리프
+    implementation 'org.springframework.boot:spring-boot-starter-web' // 스프링부트 웹
+    compileOnly 'org.projectlombok:lombok' // 롬복라이브러리 [작성라이브러리]
+    annotationProcessor 'org.projectlombok:lombok' // 롬복라이브러리 [실행라이브러리]
+    runtimeOnly 'mysql:mysql-connector-java'
+
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation group: 'org.json', name: 'json', version: '20220320'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
