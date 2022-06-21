@@ -2,13 +2,11 @@ package Exboard.controller;
 
 import Exboard.dto.BoardDto;
 import Exboard.service.BoardService;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,16 +34,35 @@ public class BoardController {
     public String list(){
         return "/board/boardlist";
     }
-    @GetMapping("/boardlist")
-    public void boardlist(  HttpServletResponse response){
-        JSONObject object = boardservice.board_list();
+    // 2-2 글 목록 출력
+    @GetMapping("/getlist")
+    public void getlist(  HttpServletResponse response){
+
         try{
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
-            response.getWriter().print(boardservice);
+            response.getWriter().print(boardservice.board_list());
 
         }catch(Exception e) {System.out.println(e);}
 
+    }
+
+    // 3-1 글 보기 이동
+    @GetMapping("/boardview")
+    public String view(){
+        return "/board/boardview";
+    }
+    // 3-2 글보기 출력
+    @GetMapping("/getboardview")
+    @ResponseBody
+    public void getboardview(@RequestParam("bno")int bno , HttpServletResponse response){
+        try{
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            response.getWriter().print(boardservice.board_view(bno));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
 

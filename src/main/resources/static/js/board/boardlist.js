@@ -2,16 +2,19 @@ boardlist()
 
 function boardlist() {
 $.ajax({
-    url : "/board/boardlist" ,
-    method : "get",
-    success : function(boardlist) {
+    url : "/board/getlist" ,
+    method : "GET",
+    success : function(re) {
+
+    //console.log(re)
         let html ="";
-        for(let i=0; i<boardlist.length; i++) {
+        for(let i=0; i<re.length; i++) {
+
         html +=
                '<tr>'+
-                     '<td>'++'</td>'+
-                     '<td>내용</td>'+
-                     '<td>작성자</td>'+
+                     '<td><a href="/board/boardview?bno='+re[i].bno+'">'+re[i].bno+'</a></td>'+
+                     '<td onclick="boardview('+re[i].bno+')">'+re[i].btitle+'</td>'+
+                     '<td>'+re[i].bid+'</td>'+
                  '</tr>'
         }
         $("#bt").html(html);
@@ -19,3 +22,25 @@ $.ajax({
     }
 })
 }
+
+function boardview(bno) {
+
+    location.href="/board/boardview?bno="+bno
+    alert(bno)
+
+     $.ajax({
+              url : "/board/getboardview",
+                data : {"bno":bno},
+                method : "GET",
+                success: function(re) {
+                console.log("gg")
+
+                }
+                })
+
+}
+
+
+
+
+

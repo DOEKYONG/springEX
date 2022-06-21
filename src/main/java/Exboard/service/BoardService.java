@@ -26,17 +26,18 @@ public class BoardService {
         return true;
     }
 
-    // json
-    public JSONArray board_list(){
+    // json 글목록 출력
+    public JSONArray board_list() {
         JSONArray jsonArray = new JSONArray();
         List<BoardEntity> boardEntityList = boardRepository.findAll();
 
-        for(BoardEntity boardEntity : boardEntityList) {
+        for (BoardEntity boardEntity : boardEntityList) {
             JSONObject object = new JSONObject();
-            object.put("btitle",boardEntity.getBtitle());
-            object.put("bcontent",boardEntity.getBcontent());
-            object.put("bid",boardEntity.getBid());
-            object.put("bpassword",boardEntity.getBpassword());
+            object.put("bno", boardEntity.getBno());
+            object.put("btitle", boardEntity.getBtitle());
+            object.put("bcontent", boardEntity.getBcontent());
+            object.put("bid", boardEntity.getBid());
+            object.put("bpassword", boardEntity.getBpassword());
             jsonArray.put(object);
         }
 
@@ -44,4 +45,17 @@ public class BoardService {
     }
 
 
+
+    // json 글 정보 출력
+    public JSONObject board_view(int bno) {
+        BoardEntity board = boardRepository.findById(bno).get();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("bno", board.getBno());
+        jsonObject.put("btitle", board.getBtitle());
+        jsonObject.put("bcontent", board.getBcontent());
+        jsonObject.put("bid", board.getBid());
+        jsonObject.put("bpassword", board.getBpassword());
+        return jsonObject;
+
+    }
 }
