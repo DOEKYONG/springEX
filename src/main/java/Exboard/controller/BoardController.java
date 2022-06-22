@@ -42,13 +42,16 @@ private HttpServletRequest request;
     }
     // 2-2 글 목록 출력
     @GetMapping("/getlist")
-    public void getlist(  HttpServletResponse response ,@RequestParam("cno") int cno ){
+    public void getlist(  HttpServletResponse response ,
+                          @RequestParam("cno") int cno ,
+                          @RequestParam("key") String key ,
+                          @RequestParam("keyword") String keyword ){
 
         try{
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
           //  System.out.println("cno:" +cno);
-            response.getWriter().print(boardservice.board_list(cno));
+            response.getWriter().print(boardservice.board_list(cno,key,keyword));
 
         }catch(Exception e) {System.out.println(e);}
 
