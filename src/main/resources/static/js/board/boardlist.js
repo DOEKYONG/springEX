@@ -1,19 +1,21 @@
-boardlist()
+board_list(1)
+category_list();
 
-function boardlist() {
+function board_list(cno) {
 $.ajax({
     url : "/board/getlist" ,
+    data : {"cno" : cno},
     method : "GET",
     success : function(re) {
 
-    //console.log(re)
-        let html ="";
+    console.log(re);
+        let html ="<tr> <th >번호</th> <th>제목</th> <th>작성자</th> </tr>";
         for(let i=0; i<re.length; i++) {
 
         html +=
                '<tr>'+
-                     '<td><a href="/board/boardview?bno='+re[i].bno+'">'+re[i].bno+'</a></td>'+
-                     '<td onclick="boardview('+re[i].bno+')">'+re[i].btitle+'</td>'+
+                     '<td><a href="/board/boardview/'+re[i].bno+'">'+re[i].bno+'</a></td>'+
+                     '<td ">'+re[i].btitle+'</td>'+
                      '<td>'+re[i].bid+'</td>'+
                  '</tr>'
         }
@@ -23,22 +25,25 @@ $.ajax({
 })
 }
 
-function boardview(bno) {
+function category_list() {
+    $.ajax({
+        url : "/board/getcategorylist",
+        method : "GET",
+        success : function( re ){
+        let html ="";
+            for(let i=0; i<re.length; i++) {
 
-    location.href="/board/boardview?bno="+bno
-    alert(bno)
+                html +=
+                   ' <button onclick ="board_list('+re[i].cno+')">'+re[i].cname+'</button>';
+            }
 
-     $.ajax({
-              url : "/board/getboardview",
-                data : {"bno":bno},
-                method : "GET",
-                success: function(re) {
-                console.log("gg")
+            $("#categorybox").html(html)
 
                 }
-                })
+            })
+        }
 
-}
+
 
 
 

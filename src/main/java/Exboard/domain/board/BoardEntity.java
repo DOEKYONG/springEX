@@ -1,6 +1,7 @@
 package Exboard.domain.board;
 
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
@@ -11,6 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
+@ToString( exclude = "categoryEntity")
+@EntityListeners(AuditingEntityListener.class)// 해당 엔티티를 감지
 public class BoardEntity {
 
     @Id
@@ -20,4 +23,10 @@ public class BoardEntity {
     private String bcontent;
     private String bid;
     private String bpassword;
+
+    @ManyToOne
+    @JoinColumn(name = "cno")
+    private CategoryEntity categoryEntity;
+
+
 }

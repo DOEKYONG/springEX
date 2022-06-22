@@ -4,7 +4,7 @@ function boardwrite() {
 
         $.ajax({
              url: "/board/boardwrite",
-                    method: "POST",      // PutMapping 으로 매핑
+                    method: "POST",
                     data :  formdata,
                     contentType : false,
                     processData: false,

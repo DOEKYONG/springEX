@@ -17,6 +17,8 @@ public class BoardDto {
     private String bid;
     private String bpassword;
 
+    private  String category; // 카테고리
+
     public BoardEntity toentity(){
         return BoardEntity.builder()
                 .btitle(this.btitle)
